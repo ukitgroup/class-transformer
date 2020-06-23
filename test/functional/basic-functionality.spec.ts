@@ -7,7 +7,7 @@ import {
     classToClass, classToClassFromExist
 } from "../../src/index";
 import { defaultMetadataStorage } from "../../src/storage";
-import { Exclude, Expose, Type } from "../../src/decorators";
+import { Exclude, Expose, Type, Transform } from "../../src/decorators";
 import { expect } from "chai";
 import { testForBuffer } from "../../src/TransformOperationExecutor";
 
@@ -1824,4 +1824,40 @@ describe("basic functionality", () => {
         expect(transformedClass.usersUndefined).to.equal(undefined);
     });
 
+    it("should set default value if nothing provided", () => {
+        defaultMetadataStorage.clear();
+
+        class User {
+            @Expose({ name: "AGE" })
+            @Transform(value => parseInt(value, 10))
+            age: number = undefined; // because of Expose
+
+            @Expose({ name: "AGE_WITH_DEFAULT" })
+            @Transform(value => parseInt(value, 10))
+            ageWithDefault: number = 18;
+
+            @Expose({ name: "FIRST_NAME" })
+            firstName: string = undefined; // because of Expose
+
+            @Expose({ name: "FIRST_NAME_WITH_DEFAULT" })
+            firstNameWithDefault: string = "default first name";
+
+            @Transform(value => !!value)
+            admin: boolean;
+
+            @Transform(value => !!value)
+            adminWithDefault: boolean = false;
+
+            lastName: string;
+
+            lastNameWithDefault: string = "default last name";
+        }
+
+        const fromPlainUser = {};
+        const transformedUser = plainToClass(User, fromPlainUser);
+        transformedUser.should.be.instanceOf(User);
+
+        const likeUser = new User();
+        transformedUser.should.be.eql(likeUser);
+    });
 });
