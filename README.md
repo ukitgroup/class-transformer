@@ -247,7 +247,7 @@ let photos = deserializeArray(Photo, photos);
 
 ## Type casting
 
-By default typescript emits types metadata and we can infer how to cast them. But `Boolean` works not as expected 
+By default typescript emits types metadata and we can infer how to cast them. But `Boolean` works not as expected
 
 
 ```typescript
@@ -270,6 +270,12 @@ plainToClass(Dto, {hasFlag: 1})
 // { hasFlag: true }
 ```
 
+### Cast to integer
+
+Integer is a commonly used type.
+Since there is `@ToInteger`, you don't need to write casting values to int everywhere.
+
+So `ToInteger` decorator is equal to `Transform` with `parseInt` convert.
 
 
 ## Enforcing type-safe instance
