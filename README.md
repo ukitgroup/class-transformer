@@ -245,6 +245,33 @@ import {deserializeArray} from "class-transformer";
 let photos = deserializeArray(Photo, photos);
 ```
 
+## Type casting
+
+By default typescript emits types metadata and we can infer how to cast them. But `Boolean` works not as expected 
+
+
+```typescript
+Boolean('false') === true
+Boolean(undefined) === false
+```
+So there is an opportunity to cast boolean as expected:
+
+```typescript
+class Dto {
+    @ToBoolean()
+    hasFlag: boolean;
+}
+
+plainToClass(Dto, {hasFlag: 'false'})
+// { hasFlag: false }
+plainToClass(Dto, {hasFlag: 0})
+// { hasFlag: false }
+plainToClass(Dto, {hasFlag: 1})
+// { hasFlag: true }
+```
+
+
+
 ## Enforcing type-safe instance
 
 The default behaviour of the `plainToClass` method is to set *all* properties from the plain object,
