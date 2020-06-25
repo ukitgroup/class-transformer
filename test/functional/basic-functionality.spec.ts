@@ -121,7 +121,7 @@ describe("basic functionality", () => {
         const transformedUser = plainToClass(User, fromPlainUser);
         transformedUser.should.be.instanceOf(User);
         transformedUser.should.have.property("age");
-        transformedUser.should.have.property("id").that.is.undefined;
+        transformedUser.should.not.have.property("id");
 
         const transformedUserWithoutExtra = plainToClass(User, fromPlainUser, { excludeExtraneousValues: true });
         transformedUserWithoutExtra.should.be.instanceOf(User);
@@ -1858,9 +1858,7 @@ describe("basic functionality", () => {
         transformedUser.should.be.instanceOf(User);
 
         transformedUser.should.be.eql({
-            age: undefined,
             ageWithDefault: 18,
-            firstName: undefined,
             firstNameWithDefault: "default first name",
             adminWithDefault: false,
             lastNameWithDefault: "default last name",

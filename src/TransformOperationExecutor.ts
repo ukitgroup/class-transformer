@@ -244,8 +244,11 @@ export class TransformOperationExecutor {
                         finalValue = this.transform(subSource, finalValue, type, arrayType, isSubValueMap, level + 1);
                     } else {
                         if (subValue === undefined) {
-                            // Set default value if nothing provided
-                            finalValue = newValue[newValueKey];
+                            const defaultValue = newValue[newValueKey];
+                            // Skip field if default value not set
+                            if (defaultValue === undefined) continue;
+                            // Set default value
+                            finalValue = defaultValue;
                         } else {
                             finalValue = this.transform(subSource, subValue, type, arrayType, isSubValueMap, level + 1);
                             finalValue = this.applyCustomTransformations(finalValue, (targetType as Function), transformKey, value, this.transformationType);
