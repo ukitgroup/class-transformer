@@ -1830,14 +1830,14 @@ describe("basic functionality", () => {
         class User {
             @Expose({ name: "AGE" })
             @Transform(value => parseInt(value, 10))
-            age: number = undefined; // because of Expose
+            age: number;
 
             @Expose({ name: "AGE_WITH_DEFAULT" })
             @Transform(value => parseInt(value, 10))
             ageWithDefault: number = 18;
 
             @Expose({ name: "FIRST_NAME" })
-            firstName: string = undefined; // because of Expose
+            firstName: string;
 
             @Expose({ name: "FIRST_NAME_WITH_DEFAULT" })
             firstNameWithDefault: string = "default first name";
@@ -1857,7 +1857,13 @@ describe("basic functionality", () => {
         const transformedUser = plainToClass(User, fromPlainUser);
         transformedUser.should.be.instanceOf(User);
 
-        const likeUser = new User();
-        transformedUser.should.be.eql(likeUser);
+        transformedUser.should.be.eql({
+            age: undefined,
+            ageWithDefault: 18,
+            firstName: undefined,
+            firstNameWithDefault: "default first name",
+            adminWithDefault: false,
+            lastNameWithDefault: "default last name",
+        });
     });
 });
