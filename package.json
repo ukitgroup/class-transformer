@@ -1,5 +1,5 @@
 {
-  "name": "class-transformer",
+  "name": "@ukitgroup/class-transformer",
   "version": "1.0.0",
   "description": "Proper decorator-based transformation / serialization / deserialization of plain javascript objects to class constructors",
   "license": "MIT",
