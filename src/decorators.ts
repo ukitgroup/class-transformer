@@ -39,7 +39,7 @@ export function ToBoolean() {
 /**
  * Cast value to integer type
  */
-export function ToInteger(radix?: number) {
+export function ToInteger(radix: number = 10) {
     return Transform((value) => {
         return parseInt(value, radix);
     });
