@@ -5,6 +5,13 @@
 [![npm version](https://badge.fury.io/js/class-transformer.svg)](https://badge.fury.io/js/class-transformer)
 [![Dependency Status](https://david-dm.org/ukitgroup/class-transformer.svg)](https://david-dm.org/ukitgroup/class-transformer)
 
+#### Disclaimer
+This is a fork of https://github.com/typestack/class-transformer with some bug fixes and features:
+- correct mapping of default value
+- @ToBoolean decorator
+- @ToInteger decorator
+- plainToClass doesn't invoke properties as functions
+
 Its ES6 and Typescript era. Nowadays you are working with classes and constructor objects more then ever.
 Class-transformer allows you to transform plain object to some instance of class and versa.
 Also it allows to serialize / deserialize object based on criteria.
